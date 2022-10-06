@@ -27,15 +27,13 @@ nonUniqueElements([10, 9, 10, 10, 9, 8]) == [10, 9, 10, 10, 9]
 export default function nonUniqueElements(data) {
     let map = new Map
 
-    let mapKey
     for (const val of data) {
-        mapKey = val.toString()
-        map.set(mapKey, map.has(mapKey))
+        map.set(val, map.has(val))
     }
 
     let list = []
     for (const val of data) {
-        if (map.get(val.toString())) {
+        if (map.get(val)) {
             list.push(val)
         }
     }

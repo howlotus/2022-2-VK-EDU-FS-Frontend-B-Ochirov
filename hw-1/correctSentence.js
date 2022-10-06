@@ -20,7 +20,7 @@ correctSentence("Greetings, friends.") == "Greetings, friends."
 export default function correctSentence(text) {
     text = text[0].toUpperCase() + text.substring(1)
 
-    if (text[text.length - 1] !== ".") {
+    if (!text.includes(".", text.length - 1)) {
         text += "."
     }
 

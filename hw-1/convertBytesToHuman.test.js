@@ -26,6 +26,7 @@ test('Возвращает корректное значение для чисе
     expect(convertBytesToHuman(564987)).toBe("551.75 KB")
     expect(convertBytesToHuman(1048576)).toBe("1 MB")
     expect(convertBytesToHuman(2482398)).toBe("2.37 MB")
+    expect(convertBytesToHuman(123123123)).toBe("117.42 MB")
     expect(convertBytesToHuman(734538289)).toBe("700.51 MB")
     expect(convertBytesToHuman(1073741823)).toBe("1023.99 MB")
     expect(convertBytesToHuman(1073741824)).toBe("1 GB")
