@@ -12,8 +12,7 @@
  * и класса (например, отрицательные числа)
  */
 
-//export default
-function convertBytesToHuman(bytes) {
+export default function convertBytesToHuman(bytes) {
     if (typeof bytes != "number" || !Number.isInteger(bytes) || bytes < 0) {
         return false
     }
@@ -22,19 +21,26 @@ function convertBytesToHuman(bytes) {
 
     let count = 0
     while (Math.trunc(bytes / 1024)) {
+        if (count > 3)
+            return false
+
         bytes = bytes / 1024
         count++
     }
 
-    if (count > 4) {
-        return false
-    }
-    else {
+    let tmp
+    if (!Number.isInteger(bytes)) {
+        tmp = bytes
+        bytes = Math.round(bytes * 100) / 100
         if (Number.isInteger(bytes)) {
-            return bytes + formats[count]
-        }
-        else {
-            return bytes.toFixed(2) + formats[count]
+            if (tmp < bytes) {
+                bytes -= 0.01
+            }
+            else {
+                bytes = bytes.toFixed(2)
+            }
         }
     }
+
+    return bytes + formats[count]
 }
