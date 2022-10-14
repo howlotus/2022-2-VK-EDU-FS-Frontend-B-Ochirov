@@ -70,6 +70,7 @@ div.input-field {
     box-shadow: 0 -5px 5px 0 rgb(220, 220, 220);
     background-color: white;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -90,10 +91,12 @@ div.input-field {
     flex-wrap: wrap;
     align-items: center;
 }
+
 .message--user-1 + .message--user-2,
 .message--user-2 + .message--user-1 {
     margin-top: 1em;
 }
+
 .message--user-1 + .message--user-1,
 .message--user-2 + .message--user-2 {
     margin-top: .5em;
@@ -111,6 +114,7 @@ div.input-field {
     justify-content: flex-end;
     position: relative;
 }
+
 .message--user-2::after {
     content: "";
     position: absolute;
@@ -120,10 +124,12 @@ div.input-field {
     border-right: 10px solid transparent;
     border-bottom: 12px solid rgb(243, 229, 245);
 }
+
 .message--user-1 {
     justify-content: start;
     position: relative;
 }
+
 .message--user-1::after {
     content: "";
     position: absolute;
@@ -133,6 +139,7 @@ div.input-field {
     border-left: 10px solid transparent;
     border-bottom: 12px solid white;
 }
+
 .message--user-2 .message-text {
     background-color: rgb(243, 229, 245);
 }
@@ -154,6 +161,7 @@ input.form-input {
 input[type=text] {
     border: none;
 }
+
 input[type=text]:focus {
     border: none;
     outline: none;
