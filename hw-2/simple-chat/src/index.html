@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="phone-screen">
+        <div class="icons-tab">
+            <div class="up-icons-tab">
+                <i class="material-icons"  id="sca_icon">signal_cellular_alt</i>&nbsp;
+                <i class="material-icons" id="wifi_icon">wifi</i>&nbsp;
+                <i class="material-icons" id="battery_icon">battery_3_bar</i>
+            </div>
+            <div class="down-icons-tab">
+                <i class="material-icons" id="arrow_icon">arrow_back</i>
+                <i class="material-icons" id="account_icon">account_circle</i>
+                <div class="user">
+                    <div class="username">Дженнифер</div>
+                    <div class="userseen">была 2 часа назад</div>
+                </div>
+                <i class="material-icons" id="search_icon">search</i>
+                <i class="material-icons" id="vert_icon">more_vert</i>
+            </div>
+        </div>
+        <div class="chat">
+            <div id="dynamic_content"></div>
+        </div>
+        <div class="input-field">
+            <div class="spaces"></div>
+            <form id="myForm" class="form">
+                <span class="in-span">
+                    <label for="message"></label>
+                    <input class="form-input" type="text" id="message" name="message" placeholder="Сообщение">
+                </span>
+            </form>
+            <i class="material-icons" id="attachment_icon">attachment</i>
+        </div>
+    </div>
+    <script>
+        const makePost = (id, klass, name, text, date) => `
+            <div class="message message--user-`+ klass + `" id="message` + id + `">
+                <div class="message-text">
+                    <div class="name">` + name + `</div>
+                    <div class="text">` + text + `</div>
+                    <div class="time">` + date + `   <i class="material-icons" id="done">done_all</i></div>
+                </div>
+            </div>`;
+
+        if (localStorage.getItem("jennifer_chat")) {
+            const dicts = localStorage.getItem("jennifer_chat").split("/;/");
+            let htmlContent = '';
+
+            let map;
+            for (let dict of dicts) {
+                map = new Map(Object.entries(JSON.parse(dict)));
+
+                htmlContent += makePost(map.get("id"), map.get("class"), map.get("name"), map.get("text"), map.get("time"));
+            }
+
+            const chat = document.getElementById('dynamic_content');
+            chat.insertAdjacentHTML('beforeend', htmlContent);
+        }
+        else {
+            let storage = '{"id":"0","class":1,"name":"Дженнифер","text":"Привет!","time":"00:01"}';
+            localStorage.setItem("jennifer_chat", storage);
+            localStorage.setItem("messages", "0");
+        }
+
+        const form = document.querySelector('form');
+        const input = document.querySelector('.form-input');
+
+        form.addEventListener('submit', this.handleSubmit.bind(this));
+
+        function handleSubmit (event) {
+            event.preventDefault();
+            if (input.value === "")
+                return;
+            let tmp = new Map;
+            let now = new Date();
+            let messageCount = String(Number(localStorage.getItem("messages")) + 1);
+            localStorage.setItem("messages", messageCount);
+            tmp.set("id", messageCount);
+            tmp.set("class", 2);
+            tmp.set("name", "Бадма");
+            tmp.set("text", input.value);
+            tmp.set("time", now.toLocaleTimeString("ru-Ru").substring(0, 5));
+
+            let storage;
+            let obj = Object.fromEntries(tmp);
+            let a = localStorage.getItem("jennifer_chat");
+            if (a) {
+                storage = a + "/;/" + JSON.stringify(obj);
+            }
+            else {
+                storage = JSON.stringify(obj);
+            }
+            localStorage.setItem("jennifer_chat", storage);
+
+            let htmlContent = makePost(tmp.get("id"), tmp.get("class"), tmp.get("name"), tmp.get("text"), tmp.get("time"));
+
+            const chat = document.getElementById('dynamic_content');
+            chat.insertAdjacentHTML('beforeend', htmlContent);
+            
+            input.value = ""
+        }
+    </script>
+</body>
+</html>

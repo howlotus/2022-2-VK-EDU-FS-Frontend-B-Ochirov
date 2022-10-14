@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet"></head>
+<body>
+    <div class="phone-screen">
+        <div class="icons-tab">
+            <div class="up-icons-tab">
+                <i class="material-icons" style="font-size: medium; color: white">signal_cellular_alt</i>&nbsp;
+                <i class="material-icons" style="font-size: medium; color: white">wifi</i>&nbsp;
+                <i class="material-icons" style="font-size: medium; color: white">battery_3_bar</i>
+            </div>
+            <div class="down-icons-tab">
+                <i class="material-icons" style="text-align: center; font-size: x-large; color: white; flex-basis: 15%">arrow_back</i>
+                <i class="material-icons" style="text-align: center; font-size: 38px; color: white; flex-basis: 20%">account_circle</i>
+                <table class="user">
+                    <tr class="username">
+                        <th class="username">Дженнифер</th>
+                    </tr>
+                    <tr class="userseen">
+                        <th class="userseen">была 2 часа назад</th>
+                    </tr>
+                </table>
+                <i class="material-icons" style="text-align: right; font-size: x-large; color: white; flex-basis: 15%">search</i>
+                <i class="material-icons" style="text-align: center; font-size: x-large; color: white; flex-basis: 15%">more_vert</i>
+            </div>
+        </div>
+        <section class="chat">
+            <div id="dynamic-content" style="margin: 5px"></div>
+            <div class="message message--user-1">
+                <figure class="message__author-pic">
+                    <img src="https://placeimg.com/40/40/people">
+                </figure>
+                <div class="message__text">
+                    <div class="name">Дженнифер</div>
+                    <div class="text">Hello!</div>
+                    <div class="time">00:00</div>
+                </div>
+            </div>
+        </section>
+        <div class="input-field">
+            <div class="spaces_4"></div>
+            <form id="myForm" class="form">
+                <span class="in-span">
+                    <label for="message"></label>
+                    <input class="form-input" type="text" id="message" name="message" placeholder="Сообщение">
+                </span>
+            </form>
+            <i class="material-icons" style="text-align: center; font-size: x-large; color: rgb(118, 118, 118); flex-basis: 20%">attachment</i>
+        </div>
+    </div>
+    <script>
+        const makePost = (name, text, date) => `
+            <div class="message message--user-2" id="` + text + `">
+                <figure class="message__author-pic">
+                    <img src="https://placeimg.com/40/40/people">
+                </figure>
+                <div class="message__text">
+                    <div class="name">` + name + `</div>
+                    <div class="text">` + text + `</div>
+                    <div class="time">` + date + `</div>
+                </div>
+            </div>`;
+
+        if (localStorage.getItem("jennifer_chat")) {
+            const dicts = localStorage.getItem("jennifer_chat").split(";");
+
+            let htmlContent = '';
+
+            let date1;
+            for (let dict of dicts) {
+                const map = new Map(Object.entries(JSON.parse(dict)));
+
+                htmlContent += makePost(map.get("name"), map.get("text"), map.get("time"));
+            }
+
+            const d1 = document.getElementById('dynamic-content');
+            d1.insertAdjacentHTML('beforeend', htmlContent);
+        }
+
+        const form = document.querySelector('form');
+        const input = document.querySelector('.form-input');
+        const message = document.querySelector('.messageabcd');
+
+        form.addEventListener('submit', this.handleSubmit.bind(this));
+
+        let tmp = "";
+        function handleSubmit (event) {
+            event.preventDefault();
+
+            let tmp = new Map;
+            let date1 = new Date();
+            tmp.set("from", false);
+            tmp.set("name", "Бадма");
+            tmp.set("text", input.value);
+            tmp.set("time", date1.getHours() + ":" + date1.getMinutes());
+
+            let storage = "";
+            let obj = Object.fromEntries(tmp);
+            let a = localStorage.getItem("jennifer_chat");
+            if (a) {
+                storage = a + ";" + JSON.stringify(obj);
+            }
+            else {
+                storage = JSON.stringify(obj);
+            }
+            localStorage.setItem("jennifer_chat", storage);
+
+            let htmlContent = '';
+
+            htmlContent += makePost(tmp.get("name"), tmp.get("text"), tmp.get("time"));
+
+            const d1 = document.getElementById('dynamic-content');
+            d1.insertAdjacentHTML('beforeend', htmlContent);
+            input.value = ""
+        }
+    </script>
+<script type="text/javascript" src="bundle.js"></script></body>
+</html>
