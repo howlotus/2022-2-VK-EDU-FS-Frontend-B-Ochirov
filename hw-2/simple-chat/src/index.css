@@ -20,6 +20,7 @@ div.icons-tab {
     flex-direction: column;
     justify-content: space-between;
     background-color: rgb(141, 44, 168);
+    min-height: 81px;
     height: 81px;
 }
 

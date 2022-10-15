@@ -39,20 +39,23 @@
         </div>
     </div>
     <script>
+        let htmlContent = '';
         let jenChat = localStorage.getItem("jennifer_chat");
+
         if (jenChat) {
             const dicts = jenChat.split("/;/");
-            let htmlContent = '';
 
-            for (let dict of dicts)
+            for (const dict of dicts)
                 htmlContent += makePost(new Map(Object.entries(JSON.parse(dict))));
-
-            document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', htmlContent);
         }
         else {
-            localStorage.setItem("jennifer_chat", '{"id":"0","class":1,"name":"Дженнифер","text":"Привет!","time":"00:01"}');
+            const dict = '{"id":"0","class":1,"name":"Дженнифер","text":"Привет!","time":"00:01"}';
+            htmlContent += makePost(new Map(Object.entries(JSON.parse(dict))));
+
+            localStorage.setItem("jennifer_chat", dict);
             localStorage.setItem("messages", "0");
         }
+        document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', htmlContent);
 
         const form = document.querySelector('form');
         const input = document.querySelector('.form-input');
@@ -83,11 +86,11 @@
 
             messageMap.set("id", messagesCount);
             messageMap.set("class", 2);
-            messageMap.set("name", "Бадма");
+            messageMap.set("name", "Я");
             messageMap.set("text", inputValue);
             messageMap.set("time", now.toLocaleTimeString("ru-Ru").substring(0, 5));
 
-            let storage = localStorage.getItem("jennifer_chat") + "/;/" + JSON.stringify(Object.fromEntries(messageMap));
+            const storage = localStorage.getItem("jennifer_chat") + "/;/" + JSON.stringify(Object.fromEntries(messageMap));
 
             localStorage.setItem("jennifer_chat", storage);
             localStorage.setItem("messages", messagesCount);
