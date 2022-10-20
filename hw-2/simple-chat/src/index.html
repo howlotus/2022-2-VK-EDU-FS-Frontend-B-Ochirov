@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="phone-screen">
+        <div class="icons-tab">
+            <div class="up-icons-tab">
+                <i class="material-icons"  id="sca_icon">signal_cellular_alt</i>&nbsp;
+                <i class="material-icons" id="wifi_icon">wifi</i>&nbsp;
+                <i class="material-icons" id="battery_icon">battery_3_bar</i>
+            </div>
+            <div class="down-icons-tab">
+                <i class="material-icons" id="arrow_icon">arrow_back</i>
+                <i class="material-icons" id="account_icon">account_circle</i>
+                <div class="user">
+                    <div class="username">Дженнифер</div>
+                    <div class="userseen">была 2 часа назад</div>
+                </div>
+                <i class="material-icons" id="search_icon">search</i>
+                <i class="material-icons" id="vert_icon">more_vert</i>
+            </div>
+        </div>
+        <div class="chat">
+            <div id="dynamic_content"></div>
+        </div>
+        <div class="input-field">
+            <div class="spaces"></div>
+            <form id="myForm" class="form">
+                <span class="in-span">
+                    <label for="message"></label>
+                    <input class="form-input" type="text" id="message" name="message" placeholder="Сообщение">
+                </span>
+            </form>
+            <i class="material-icons" id="attachment_icon">attachment</i>
+        </div>
+    </div>
+    <script>
+        let htmlContent = '';
+        let jenChat = localStorage.getItem("jennifer_chat");
+
+        if (jenChat) {
+            const dicts = jenChat.split("/;/");
+
+            for (const dict of dicts)
+                htmlContent += makePost(new Map(Object.entries(JSON.parse(dict))));
+        }
+        else {
+            const dict = '{"id":"0","class":1,"name":"Дженнифер","text":"Привет!","time":"00:01"}';
+            htmlContent += makePost(new Map(Object.entries(JSON.parse(dict))));
+
+            localStorage.setItem("jennifer_chat", dict);
+            localStorage.setItem("messages", "0");
+        }
+        document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', htmlContent);
+
+        const form = document.querySelector('form');
+        const input = document.querySelector('.form-input');
+
+        form.addEventListener('submit', this.handleSubmit.bind(this));
+
+        function makePost(map) {
+            return `<div class="message message--user-`+ map.get("class") + `" id="message` + map.get("id") + `">
+                <div class="message-text">
+                    <div class="name">` + map.get("name") + `</div>
+                    <div class="text">` + map.get("text") + `</div>
+                    <div class="time">` + map.get("time") + `   <i class="material-icons" id="done">done_all</i></div>
+                </div>
+            </div>`;
+        }
+
+        function handleSubmit (event) {
+            event.preventDefault();
+
+            const inputValue = input.value;
+            if (inputValue === "")
+                return;
+            input.value = "";
+
+            let messageMap = new Map();
+            const now = new Date();
+            const messagesCount = String(Number(localStorage.getItem("messages")) + 1);
+
+            messageMap.set("id", messagesCount);
+            messageMap.set("class", 2);
+            messageMap.set("name", "Я");
+            messageMap.set("text", inputValue);
+            messageMap.set("time", now.toLocaleTimeString("ru-Ru").substring(0, 5));
+
+            const storage = localStorage.getItem("jennifer_chat") + "/;/" + JSON.stringify(Object.fromEntries(messageMap));
+
+            localStorage.setItem("jennifer_chat", storage);
+            localStorage.setItem("messages", messagesCount);
+            document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', makePost(messageMap));
+        }
+    </script>
+</body>
+</html>
