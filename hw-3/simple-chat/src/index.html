@@ -33,21 +33,25 @@
         let htmlContent = '';
 
         for (let chat of chats) {
-            htmlContent += makeListObj();
+            let fullChat = JSON.parse(localStorage.getItem(chat));
+            htmlContent += makeListObj(fullChat);
         }
         document.getElementById('chat_list').insertAdjacentHTML('beforeend', htmlContent);
 
-        function makeListObj() {
+        function makeListObj(fullChat) {
+            let array = fullChat.chats;
+            console.log(array);
+            let last = array[array.length - 1];
             return `<button class="list-object" onclick="deleteChatList()">
                 <div class="avatar">
                     <i class="material-icons" style="font-size: 50px">account_circle</i>
                 </div>
                 <div class="name-text">
-                    <div class="list-object-name">Дженнифер Эшли</div>
-                    <div class="list-object-text">Ты куда пропал?</div>
+                    <div class="list-object-name">` + fullChat.name + `</div>
+                    <div class="list-object-text">` + last.text + `</div>
                 </div>
                 <div class="time-status">
-                    <div class="list-object-time">15:50</div>
+                    <div class="list-object-time">` + last.time + `</div>
                     <div class="list-object-status">
                         <i class="material-icons" style="font-size: 20px">done_all</i>
                     </div>
@@ -98,16 +102,17 @@
             const jenChat = localStorage.getItem("jennifer_chat");
 
             if (jenChat) {
-                const array = JSON.parse(jenChat);
-                for (const obj of array) {
+                const chats = JSON.parse(jenChat).chats;
+                for (const obj of chats) {
                     htmlContent += makePost(obj);
                 }
             }
             else {
                 const obj = {id: 0, class: 1, name: "Дженнифер", text: "Привет!", time: "00:01"};
+                const fullChat = {chats: [obj], name: "Дженнифер", status: true};
 
                 htmlContent += makePost(obj);
-                localStorage.setItem("jennifer_chat", JSON.stringify([obj]));
+                localStorage.setItem("jennifer_chat", JSON.stringify(fullChat));
             }
             document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', htmlContent);
 
@@ -134,7 +139,8 @@
                     return;
                 input.value = "";
 
-                let array = JSON.parse(localStorage.getItem("jennifer_chat"));
+                let fullChat = JSON.parse(localStorage.getItem("jennifer_chat"));
+                let array = fullChat.chats;
                 const obj = {
                     id: array.length,
                     class: 2,
@@ -144,7 +150,8 @@
                 };
 
                 array.push(obj);
-                localStorage.setItem("jennifer_chat", JSON.stringify(array));
+                fullChat.chats = array;
+                localStorage.setItem("jennifer_chat", JSON.stringify(fullChat));
 
                 document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', makePost(obj));
             }
@@ -176,11 +183,11 @@
     </div>`;
             document.getElementById('body').insertAdjacentHTML('beforeend', htmlContent);
 
-            const chats = ["jennifer_chat"];
             htmlContent = '';
 
             for (let chat of chats) {
-                htmlContent += makeListObj();
+                let fullChat = JSON.parse(localStorage.getItem(chat));
+                htmlContent += makeListObj(fullChat);
             }
             document.getElementById('chat_list').insertAdjacentHTML('beforeend', htmlContent);
         }

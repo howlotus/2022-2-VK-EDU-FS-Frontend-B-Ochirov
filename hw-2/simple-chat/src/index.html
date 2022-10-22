@@ -44,16 +44,17 @@
         const jenChat = localStorage.getItem("jennifer_chat");
 
         if (jenChat) {
-            const array = JSON.parse(jenChat);
-            for (const obj of array) {
+            const fullChat = JSON.parse(jenChat).chats;
+            for (const obj of fullChat) {
                 htmlContent += makePost(obj);
             }
         }
         else {
             const obj = {id: 0, class: 1, name: "Дженнифер", text: "Привет!", time: "00:01"};
+            const fullChat = {chats: [obj], name: "Дженнифер", status: true};
 
             htmlContent += makePost(obj);
-            localStorage.setItem("jennifer_chat", JSON.stringify([obj]));
+            localStorage.setItem("jennifer_chat", JSON.stringify(fullChat));
         }
         document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', htmlContent);
 
@@ -80,7 +81,8 @@
                 return;
             input.value = "";
 
-            let array = JSON.parse(localStorage.getItem("jennifer_chat"));
+            let fullChat = JSON.parse(localStorage.getItem("jennifer_chat"));
+            let array = fullChat.chats;
             const obj = {
                 id: array.length,
                 class: 2,
@@ -90,7 +92,8 @@
             };
 
             array.push(obj);
-            localStorage.setItem("jennifer_chat", JSON.stringify(array));
+            fullChat.chats = array;
+            localStorage.setItem("jennifer_chat", JSON.stringify(fullChat));
 
             document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', makePost(obj));
         }
