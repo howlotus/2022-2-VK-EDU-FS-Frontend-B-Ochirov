@@ -50,12 +50,10 @@
             }
         }
         else {
-            let array = [];
             const obj = {id: 0, class: 1, name: "Дженнифер", text: "Привет!", time: "00:01"};
 
-            array.push(obj)
             htmlContent += makePost(obj);
-            localStorage.setItem("jennifer_chat", JSON.stringify(array));
+            localStorage.setItem("jennifer_chat", JSON.stringify([obj]));
         }
         document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', htmlContent);
 
