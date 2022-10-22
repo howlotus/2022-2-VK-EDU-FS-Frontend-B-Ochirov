@@ -7,7 +7,7 @@
     <link href="index.css" rel="stylesheet">
 </head>
 <body id="body">
-    <div class="phone-screen" id="phone_screen">
+    <div class="phone-screen" id="phone_screen1">
         <div class="icons-tab">
             <div class="up-icons-tab">
                 <i class="material-icons"  id="sca_icon">signal_cellular_alt</i>&nbsp;
@@ -37,8 +37,6 @@
         }
         document.getElementById('chat_list').insertAdjacentHTML('beforeend', htmlContent);
 
-        form.addEventListener('submit', handleSubmit);
-
         function makeListObj() {
             return `<button class="list-object" onclick="deleteChatList()">
                 <div class="avatar">
@@ -58,9 +56,9 @@
         }
 
         function deleteChatList() {
-            document.getElementById('phone_screen').remove();
-            
-            let htmlContent = `<div class="phone-screen">
+            document.getElementById('phone_screen1').remove();
+
+            let htmlContent = `<div class="phone-screen" id="phone_screen2">
         <div class="icons-tab">
             <div class="up-icons-tab">
                 <i class="material-icons"  id="sca_icon">signal_cellular_alt</i>&nbsp;
@@ -68,7 +66,9 @@
                 <i class="material-icons" id="battery_icon">battery_3_bar</i>
             </div>
             <div class="down-icons-tab">
-                <i class="material-icons" id="arrow_icon">arrow_back</i>
+                <button onclick="returnChatList()" style="background-color: transparent; border: 0; margin-left: 12px;">
+                    <i class="material-icons" id="arrow_icon">arrow_back</i>
+                </button>
                 <i class="material-icons" id="account_icon">account_circle</i>
                 <div class="user">
                     <div class="username">Дженнифер</div>
@@ -148,6 +148,41 @@
 
                 document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', makePost(obj));
             }
+        }
+
+        function returnChatList() {
+            document.getElementById('phone_screen2').remove();
+
+            let htmlContent = `<div class="phone-screen" id="phone_screen1">
+        <div class="icons-tab">
+            <div class="up-icons-tab">
+                <i class="material-icons"  id="sca_icon">signal_cellular_alt</i>&nbsp;
+                <i class="material-icons" id="wifi_icon">wifi</i>&nbsp;
+                <i class="material-icons" id="battery_icon">battery_3_bar</i>
+            </div>
+            <div class="down-icons-tab">
+                <i class="material-icons" id="menu_icon">menu</i>
+                <div class="messenger-caption">
+                    Messenger
+                </div>
+                <i class="material-icons" id="search_icon">search</i>
+            </div>
+        </div>
+        <form class="chat-list" id="chat_list">
+        </form>
+        <div class="float-action-button">
+            <i class="material-icons" style="font-size: 24px">create</i>
+        </div>
+    </div>`;
+            document.getElementById('body').insertAdjacentHTML('beforeend', htmlContent);
+
+            const chats = ["jennifer_chat"];
+            htmlContent = '';
+
+            for (let chat of chats) {
+                htmlContent += makeListObj();
+            }
+            document.getElementById('chat_list').insertAdjacentHTML('beforeend', htmlContent);
         }
     </script>
 </body>
