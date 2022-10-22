@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Chat</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
 </head>
 <body>
     <div class="phone-screen">
@@ -40,34 +41,35 @@
     </div>
     <script>
         let htmlContent = '';
-        let jenChat = localStorage.getItem("jennifer_chat");
+        const jenChat = localStorage.getItem("jennifer_chat");
 
         if (jenChat) {
-            const dicts = jenChat.split("/;/");
-
-            for (const dict of dicts)
-                htmlContent += makePost(new Map(Object.entries(JSON.parse(dict))));
+            const array = JSON.parse(jenChat);
+            for (const obj of array) {
+                htmlContent += makePost(obj);
+            }
         }
         else {
-            const dict = '{"id":"0","class":1,"name":"Дженнифер","text":"Привет!","time":"00:01"}';
-            htmlContent += makePost(new Map(Object.entries(JSON.parse(dict))));
+            let array = [];
+            const obj = {id: 0, class: 1, name: "Дженнифер", text: "Привет!", time: "00:01"};
 
-            localStorage.setItem("jennifer_chat", dict);
-            localStorage.setItem("messages", "0");
+            array.push(obj)
+            htmlContent += makePost(obj);
+            localStorage.setItem("jennifer_chat", JSON.stringify(array));
         }
         document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', htmlContent);
 
         const form = document.querySelector('form');
         const input = document.querySelector('.form-input');
 
-        form.addEventListener('submit', this.handleSubmit.bind(this));
+        form.addEventListener('submit', handleSubmit);
 
-        function makePost(map) {
-            return `<div class="message message--user-`+ map.get("class") + `" id="message` + map.get("id") + `">
+        function makePost(obj) {
+            return `<div class="message message--user-`+ obj.class + `" id="message` + obj.id + `">
                 <div class="message-text">
-                    <div class="name">` + map.get("name") + `</div>
-                    <div class="text">` + map.get("text") + `</div>
-                    <div class="time">` + map.get("time") + `   <i class="material-icons" id="done">done_all</i></div>
+                    <div class="name">` + obj.name + `</div>
+                    <div class="text">` + obj.text + `</div>
+                    <div class="time">` + obj.time + `   <i class="material-icons" id="done">done_all</i></div>
                 </div>
             </div>`;
         }
@@ -80,21 +82,19 @@
                 return;
             input.value = "";
 
-            let messageMap = new Map();
-            const now = new Date();
-            const messagesCount = String(Number(localStorage.getItem("messages")) + 1);
+            let array = JSON.parse(localStorage.getItem("jennifer_chat"));
+            const obj = {
+                id: array.length,
+                class: 2,
+                name: "Я",
+                text: inputValue,
+                time: (new Date()).toLocaleTimeString("ru-Ru").substring(0, 5)
+            };
 
-            messageMap.set("id", messagesCount);
-            messageMap.set("class", 2);
-            messageMap.set("name", "Я");
-            messageMap.set("text", inputValue);
-            messageMap.set("time", now.toLocaleTimeString("ru-Ru").substring(0, 5));
+            array.push(obj);
+            localStorage.setItem("jennifer_chat", JSON.stringify(array));
 
-            const storage = localStorage.getItem("jennifer_chat") + "/;/" + JSON.stringify(Object.fromEntries(messageMap));
-
-            localStorage.setItem("jennifer_chat", storage);
-            localStorage.setItem("messages", messagesCount);
-            document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', makePost(messageMap));
+            document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', makePost(obj));
         }
     </script>
 </body>
