@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet"></head>
+<body>
+    <div class="phone-screen">
+        <div class="icons-tab">
+            <div class="up-icons-tab">
+                <i class="material-icons"  id="sca_icon">signal_cellular_alt</i>&nbsp;
+                <i class="material-icons" id="wifi_icon">wifi</i>&nbsp;
+                <i class="material-icons" id="battery_icon">battery_3_bar</i>
+            </div>
+            <div class="down-icons-tab">
+                <i class="material-icons" id="menu_icon">menu</i>
+                <div class="messenger-caption">
+                    Messenger
+                </div>
+                <i class="material-icons" id="search_icon">search</i>
+            </div>
+        </div>
+        <form class="chat-list" id="chat_list">
+        </form>
+        <div class="float-action-button">
+            <i class="material-icons" style="font-size: 24px">create</i>
+        </div>
+    </div>
+    <script>
+        const chats = ["jennifer_chat"];
+        let htmlContent = '';
+
+        for (let chat of chats) {
+            htmlContent += makeListObj();
+        }
+        document.getElementById('chat_list').insertAdjacentHTML('beforeend', htmlContent);
+
+        const form = document.querySelector('chat-list');
+        const input = document.querySelector('.form-input');
+
+        form.addEventListener('submit', handleSubmit);
+
+        function makeListObj() {
+            return `<button class="list-object">
+                <div class="avatar">
+                    <i class="material-icons" style="font-size: 50px">account_circle</i>
+                </div>
+                <div class="name-text">
+                    <div class="list-object-name">Дженнифер Эшли</div>
+                    <div class="list-object-text">Ты куда пропал?</div>
+                </div>
+                <div class="time-status">
+                    <div class="list-object-time">15:50</div>
+                    <div class="list-object-status">
+                        <i class="material-icons" style="font-size: 20px">done_all</i>
+                    </div>
+                </div>
+            </button>`;
+        }
+
+        function handleSubmit (event) {
+            event.preventDefault();
+
+            const inputValue = input.value;
+            if (inputValue === "")
+                return;
+            input.value = "";
+        }
+    </script>
+<script type="text/javascript" src="bundle.js"></script></body>
+</html>
