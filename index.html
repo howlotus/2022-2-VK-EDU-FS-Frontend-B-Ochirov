@@ -16,33 +16,40 @@
             </div>
             <div class="down-icons-tab">
                 <i class="material-icons" id="menu_icon">menu</i>
-                <div class="messenger-caption">
-                    Messenger
-                </div>
+                <div class="messenger-caption">Messenger</div>
                 <i class="material-icons" id="search_icon">search</i>
             </div>
         </div>
-        <form class="chat-list" id="chat_list">
-        </form>
+        <div class="chat-list" id="chat_list"></div>
         <div class="float-action-button">
             <i class="material-icons" style="font-size: 24px">create</i>
         </div>
     </div>
     <script>
-        const chats = ["jennifer_chat"];
+        const chat_names = ["Дженнифер", "Крис", "Олег", "Екатерина"];
         let htmlContent = '';
 
-        for (let chat of chats) {
-            let fullChat = JSON.parse(localStorage.getItem(chat));
+        for (let chat_name of chat_names) {
+            let chat = localStorage.getItem(chat_name);
+            let fullChat;
+            if (chat) {
+                fullChat = JSON.parse(chat);
+            }
+            else {
+                const obj = {id: 0, class: 1, name: chat_name, text: "Привет!", time: "00:01"};
+                fullChat = {chats: [obj], name: chat_name, status: true};
+
+                localStorage.setItem(chat_name, JSON.stringify(fullChat));
+            }
+
             htmlContent += makeListObj(fullChat);
         }
         document.getElementById('chat_list').insertAdjacentHTML('beforeend', htmlContent);
 
         function makeListObj(fullChat) {
             let array = fullChat.chats;
-            console.log(array);
             let last = array[array.length - 1];
-            return `<button class="list-object" onclick="deleteChatList()">
+            return `<button class="list-object" onclick="deleteChatList('`+ fullChat.name +`')">
                 <div class="avatar">
                     <i class="material-icons" style="font-size: 50px">account_circle</i>
                 </div>
@@ -59,60 +66,50 @@
             </button>`;
         }
 
-        function deleteChatList() {
+        function deleteChatList(name) {
             document.getElementById('phone_screen1').remove();
 
-            let htmlContent = `<div class="phone-screen" id="phone_screen2">
-        <div class="icons-tab">
-            <div class="up-icons-tab">
-                <i class="material-icons"  id="sca_icon">signal_cellular_alt</i>&nbsp;
-                <i class="material-icons" id="wifi_icon">wifi</i>&nbsp;
-                <i class="material-icons" id="battery_icon">battery_3_bar</i>
-            </div>
-            <div class="down-icons-tab">
-                <button onclick="returnChatList()" style="background-color: transparent; border: 0; margin-left: 12px;">
-                    <i class="material-icons" id="arrow_icon">arrow_back</i>
-                </button>
-                <i class="material-icons" id="account_icon">account_circle</i>
-                <div class="user">
-                    <div class="username">Дженнифер</div>
-                    <div class="userseen">была 2 часа назад</div>
-                </div>
-                <i class="material-icons" id="search_icon">search</i>
-                <i class="material-icons" id="vert_icon">more_vert</i>
-            </div>
-        </div>
-        <div class="chat">
-            <div id="dynamic_content"></div>
-        </div>
-        <div class="input-field">
-            <div class="spaces"></div>
-            <form id="myForm" class="form">
-                <span class="in-span">
-                    <label for="message"></label>
-                    <input class="form-input" type="text" id="message" name="message" placeholder="Сообщение">
-                </span>
-            </form>
-            <i class="material-icons" id="attachment_icon">attachment</i>
-        </div>
-    </div>`;
+            let htmlContent = `
+                <div class="phone-screen" id="phone_screen2">
+                    <div class="icons-tab">
+                        <div class="up-icons-tab">
+                            <i class="material-icons"  id="sca_icon">signal_cellular_alt</i>&nbsp;
+                            <i class="material-icons" id="wifi_icon">wifi</i>&nbsp;
+                            <i class="material-icons" id="battery_icon">battery_3_bar</i>
+                        </div>
+                        <div class="down-icons-tab">
+                            <button onclick="returnChatList()" style="background-color: transparent; border: 0; margin-left: 12px;">
+                                <i class="material-icons" id="arrow_icon">arrow_back</i>
+                            </button>
+                            <i class="material-icons" id="account_icon">account_circle</i>
+                            <div class="user">
+                                <div class="username">` + name + `</div>
+                                <div class="userseen">был(а) 2 часа назад</div>
+                            </div>
+                            <i class="material-icons" id="search_icon">search</i>
+                            <i class="material-icons" id="vert_icon">more_vert</i>
+                        </div>
+                    </div>
+                    <div class="chat">
+                        <div id="dynamic_content"></div>
+                    </div>
+                    <div class="input-field">
+                        <div class="spaces"></div>
+                        <form id="myForm" class="form">
+                            <span class="in-span">
+                                <label for="message"></label>
+                                <input class="form-input" type="text" id="message" name="message" placeholder="Сообщение">
+                            </span>
+                        </form>
+                        <i class="material-icons" id="attachment_icon">attachment</i>
+                    </div>
+                </div>`;
             document.getElementById('body').insertAdjacentHTML('beforeend', htmlContent);
 
             htmlContent = '';
-            const jenChat = localStorage.getItem("jennifer_chat");
-
-            if (jenChat) {
-                const chats = JSON.parse(jenChat).chats;
-                for (const obj of chats) {
-                    htmlContent += makePost(obj);
-                }
-            }
-            else {
-                const obj = {id: 0, class: 1, name: "Дженнифер", text: "Привет!", time: "00:01"};
-                const fullChat = {chats: [obj], name: "Дженнифер", status: true};
-
+            const chats = JSON.parse(localStorage.getItem(name)).chats;
+            for (const obj of chats) {
                 htmlContent += makePost(obj);
-                localStorage.setItem("jennifer_chat", JSON.stringify(fullChat));
             }
             document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', htmlContent);
 
@@ -139,7 +136,7 @@
                     return;
                 input.value = "";
 
-                let fullChat = JSON.parse(localStorage.getItem("jennifer_chat"));
+                let fullChat = JSON.parse(localStorage.getItem(name));
                 let array = fullChat.chats;
                 const obj = {
                     id: array.length,
@@ -151,7 +148,7 @@
 
                 array.push(obj);
                 fullChat.chats = array;
-                localStorage.setItem("jennifer_chat", JSON.stringify(fullChat));
+                localStorage.setItem(name, JSON.stringify(fullChat));
 
                 document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', makePost(obj));
             }
@@ -160,33 +157,32 @@
         function returnChatList() {
             document.getElementById('phone_screen2').remove();
 
-            let htmlContent = `<div class="phone-screen" id="phone_screen1">
-        <div class="icons-tab">
-            <div class="up-icons-tab">
-                <i class="material-icons"  id="sca_icon">signal_cellular_alt</i>&nbsp;
-                <i class="material-icons" id="wifi_icon">wifi</i>&nbsp;
-                <i class="material-icons" id="battery_icon">battery_3_bar</i>
-            </div>
-            <div class="down-icons-tab">
-                <i class="material-icons" id="menu_icon">menu</i>
-                <div class="messenger-caption">
-                    Messenger
-                </div>
-                <i class="material-icons" id="search_icon">search</i>
-            </div>
-        </div>
-        <form class="chat-list" id="chat_list">
-        </form>
-        <div class="float-action-button">
-            <i class="material-icons" style="font-size: 24px">create</i>
-        </div>
-    </div>`;
+            let htmlContent = `
+                <div class="phone-screen" id="phone_screen1">
+                    <div class="icons-tab">
+                        <div class="up-icons-tab">
+                            <i class="material-icons"  id="sca_icon">signal_cellular_alt</i>&nbsp;
+                            <i class="material-icons" id="wifi_icon">wifi</i>&nbsp;
+                            <i class="material-icons" id="battery_icon">battery_3_bar</i>
+                        </div>
+                        <div class="down-icons-tab">
+                            <i class="material-icons" id="menu_icon">menu</i>
+                            <div class="messenger-caption">Messenger</div>
+                            <i class="material-icons" id="search_icon">search</i>
+                        </div>
+                    </div>
+                    <div class="chat-list" id="chat_list"></div>
+                    <div class="float-action-button">
+                        <i class="material-icons" style="font-size: 24px">create</i>
+                    </div>
+                </div>`;
             document.getElementById('body').insertAdjacentHTML('beforeend', htmlContent);
 
             htmlContent = '';
 
-            for (let chat of chats) {
-                let fullChat = JSON.parse(localStorage.getItem(chat));
+            for (let chat_name of chat_names) {
+                let fullChat = JSON.parse(localStorage.getItem(chat_name));
+
                 htmlContent += makeListObj(fullChat);
             }
             document.getElementById('chat_list').insertAdjacentHTML('beforeend', htmlContent);
