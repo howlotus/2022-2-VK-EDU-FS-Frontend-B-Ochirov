@@ -1,3 +1,9 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -40,6 +46,167 @@ div.down-icons-tab {
     align-items: center;
 }
 
+.sca-icon {
+    font-size: medium;
+    color: white;
+}
+
+.wifi-icon {
+    font-size: medium;
+    color: white;
+}
+
+.battery-icon {
+    font-size: medium;
+    color: white;
+}
+
+.search-icon {
+    width: 15%;
+    text-align: center;
+    font-size: x-large;
+    color: white;
+}
+
+.menu-icon {
+    color: white;
+    width: 15%;
+    text-align: center;
+}
+
+.messenger-caption {
+    width: 70%;
+    color: white;
+    font-family: Tahoma, serif;
+    font-size: 18px;
+    padding-left: 15px;
+}
+
+.chat-list {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.float-action-button {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background-color: rgb(254, 212, 91);
+    color: rgb(116, 96, 41);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    padding: 16px;
+}
+
+.create-icon {
+    font-size: 24px;
+}
+
+.list-object {
+    display: flex;
+    min-height: 64px;
+    height: 64px;
+    background-color: white;
+    border-radius: 0;
+    border: 0;
+}
+
+.list-object:hover {
+    background-color: rgb(176, 176, 176);
+}
+
+.list-object:last-child .name-text ,
+.list-object:last-child .time-status{
+    border-bottom: 0;
+}
+
+.avatar {
+    width: 25%;
+    text-align: center;
+    color: black;
+    padding-top: 7px;
+}
+
+.account-circle {
+    font-size: 50px;
+}
+
+.name-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 59%;
+    padding: 10px 0;
+    border-bottom: 1px rgba(85, 85, 85, 0.3) solid;
+    height: 100%;
+    overflow: hidden;
+}
+
+.list-object-name {
+    font-size: 18px;
+    color: black;
+    text-align: left;
+}
+
+.list-object-text {
+    font-size: 14px;
+    color: rgb(51, 51, 51);
+    text-align: left;
+}
+
+.time-status {
+    padding-top: 6px;
+    display: flex;
+    flex-direction: column;
+    width: 16%;
+    border-bottom: 1px rgba(85, 85, 85, 0.3) solid;
+    height: 100%;
+}
+
+.list-object-time {
+    color: rgb(102, 96, 103);
+    font-size: 12px;
+    height: 40%;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.list-object-status {
+    height: 60%;
+    text-align: center;
+    color: rgb(141, 44, 168);
+}
+
+.status-icon {
+    font-size: 20px;
+}
+.return-arrow {
+    background-color: transparent;
+    border: 0;
+    margin-left: 12px;
+    color: white;
+}
+
+.return-arrow:hover {
+    color: rgb(176, 176, 176);
+}
+
+.arrow-icon {
+    text-align: center;
+    font-size: x-large;
+    flex-basis: 15%;
+}
+
+.account-icon {
+    text-align: center;
+    font-size: 38px;
+    color: white;
+    flex-basis: 20%;
+}
+
 div.user {
     display: inline-block;
     flex-basis: 35%;
@@ -62,6 +229,26 @@ div.userseen {
     font-weight: lighter;
 }
 
+.vert-icon {
+    text-align: center;
+    font-size: x-large;
+    color: white;
+    flex-basis: 15%;
+}
+
+.chat {
+    display: flex;
+    flex-direction: column-reverse;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow: auto;
+}
+
+#dynamic_content {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 div.input-field {
     display: flex;
     align-items: center;
@@ -74,18 +261,39 @@ div.input-field {
     background-color: white;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+div.spaces {
+    width: 16px;
+    height: 100%;
 }
 
-.chat {
-    display: flex;
-    flex-direction: column-reverse;
-    padding-left: 10px;
-    padding-right: 10px;
-    overflow: auto;
+form.form {
+    width: 86%;
+    margin-right: 4px;
+}
+
+span.in-span {
+    color: rgb(159, 159, 159)
+}
+
+input.form-input {
+    width: 100%;
+    font-size: 16px;
+}
+
+input[type=text] {
+    border: none;
+}
+
+input[type=text]:focus {
+    border: none;
+    outline: none;
+}
+
+.attachment-icon {
+    text-align: center;
+    font-size: x-large;
+    color: rgb(118, 118, 118);
+    margin-right: 8px;
 }
 
 .message {
@@ -148,34 +356,6 @@ div.input-field {
     background-color: rgb(243, 229, 245);
 }
 
-form.form {
-    width: 86%;
-    margin-right: 4px;
-}
-
-span.in-span {
-    color: rgb(159, 159, 159)
-}
-
-input.form-input {
-    width: 100%;
-    font-size: 16px;
-}
-
-input[type=text] {
-    border: none;
-}
-
-input[type=text]:focus {
-    border: none;
-    outline: none;
-}
-
-div.spaces {
-    width: 16px;
-    height: 100%;
-}
-
 div.name {
     font-size: 12px;
     font-family: Tahoma, sans-serif;
@@ -196,75 +376,6 @@ div.time {
     text-align: right;
 }
 
-.sca-icon {
-    font-size: medium;
-    color: white;
-}
-
-.wifi-icon {
-    font-size: medium;
-    color: white;
-}
-
-.battery-icon {
-    font-size: medium;
-    color: white;
-}
-
-.arrow-icon {
-    text-align: center;
-    font-size: x-large;
-    color: white;
-    flex-basis: 15%;
-}
-
-.account-icon {
-    text-align: center;
-    font-size: 38px;
-    color: white;
-    flex-basis: 20%;
-}
-
-.search-icon {
-    width: 15%;
-    text-align: center;
-    font-size: x-large;
-    color: white;
-}
-
-.vert-icon {
-    text-align: center;
-    font-size: x-large;
-    color: white;
-    flex-basis: 15%;
-}
-
-#attachment_icon {
-    text-align: center;
-    font-size: x-large;
-    color: rgb(118, 118, 118);
-    margin-right: 8px;
-}
-
-#dynamic_content {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.menu-icon {
-    color: white;
-    width: 15%;
-    text-align: center;
-}
-
-.messenger-caption {
-    width: 70%;
-    color: white;
-    font-family: Tahoma, serif;
-    font-size: 18px;
-    padding-left: 15px;
-}
-
 .message--user-1 #done {
     display: none;
 }
@@ -274,94 +385,3 @@ div.time {
     color: rgb(141, 44, 168);
     font-size: 10px;
 }
-
-.chat-list {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    overflow: auto;
-}
-
-.list-object {
-    display: flex;
-    min-height: 64px;
-    height: 64px;
-    background-color: white;
-    border-radius: 0;
-    border: 0;
-}
-
-.list-object:hover {
-    background-color: rgb(176, 176, 176);
-}
-
-.list-object:last-child .name-text ,
-.list-object:last-child .time-status{
-    border-bottom: 0;
-}
-
-.avatar {
-    width: 25%;
-    text-align: center;
-    color: black;
-    padding-top: 7px;
-}
-
-.name-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 59%;
-    padding: 10px 0;
-    border-bottom: 1px rgba(85, 85, 85, 0.3) solid;
-    height: 100%;
-    overflow: hidden;
-}
-
-.list-object-name {
-    font-size: 18px;
-    color: black;
-    text-align: left;
-}
-
-.list-object-text {
-    font-size: 14px;
-    color: rgb(51, 51, 51);
-    text-align: left;
-}
-
-.time-status {
-    padding-top: 6px;
-    display: flex;
-    flex-direction: column;
-    width: 16%;
-    border-bottom: 1px rgba(85, 85, 85, 0.3) solid;
-    height: 100%;
-}
-
-.list-object-time {
-    color: rgb(102, 96, 103);
-    font-size: 12px;
-    height: 40%;
-    text-align: center;
-    padding-top: 10px;
-}
-
-.list-object-status {
-    height: 60%;
-    text-align: center;
-    color: rgb(141, 44, 168);
-}
-
-.float-action-button {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-    background-color: rgb(254, 212, 91);
-    color: rgb(116, 96, 41);
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    padding: 16px;
-}
-
