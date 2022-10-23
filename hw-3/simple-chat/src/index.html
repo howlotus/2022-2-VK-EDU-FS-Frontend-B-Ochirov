@@ -60,7 +60,6 @@
         </div>
     </div>
     <script>
-        let globalName;
         const names = ["Дженнифер", "Крис", "Олег", "Екатерина"];
 
         toChatList();
@@ -114,12 +113,10 @@
             document.getElementById('user_name').innerText = name;
             document.getElementById('user_seen').innerText = seen;
 
+            let input = document.getElementById('message_input');
             const form = document.getElementById('my_form');
-            const input = document.getElementById('message_input');
 
             input.value = "";
-            globalName = name;
-
             form.addEventListener('submit', handleSubmit);
 
             function handleSubmit(event) {
@@ -130,7 +127,8 @@
                     return;
                 input.value = "";
 
-                let fullChat = JSON.parse(localStorage.getItem(globalName));
+                const name = document.getElementById('user_name').innerText;
+                let fullChat = JSON.parse(localStorage.getItem(name));
                 let array = fullChat.chats;
                 const obj = {
                     id: array.length,
@@ -143,7 +141,7 @@
                 array.push(obj);
                 fullChat.chats = array;
                 fullChat.status = true;
-                localStorage.setItem(globalName, JSON.stringify(fullChat));
+                localStorage.setItem(name, JSON.stringify(fullChat));
 
                 document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', makeMessage(obj));
             }
@@ -154,7 +152,6 @@
             document.getElementById('phone_screen1').style.display = "flex";
 
             let htmlContent = '';
-
             for (const chatName of names) {
                 const chat = localStorage.getItem(chatName);
 
