@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <title>Chat</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="index.css" rel="stylesheet">
-    <link href="screen1_style.css" rel="stylesheet">
-    <link href="screen2_style.css" rel="stylesheet">
 <link href="style.css" rel="stylesheet"></head>
 <body>
     <div class="phone-screen" id="phone_screen1">
@@ -62,9 +59,33 @@
         </div>
     </div>
     <script>
-        const names = ["Дженнифер", "Крис", "Олег", "Екатерина"];
-
         toChatList();
+
+        function toChatList() {
+            const names = ["Дженнифер", "Крис", "Олег", "Екатерина"];
+
+            document.getElementById('phone_screen2').style.display = "none";
+            document.getElementById('phone_screen1').style.display = "flex";
+
+            let htmlContent = '';
+            for (const chatName of names) {
+                const chat = localStorage.getItem(chatName);
+
+                let fullChat;
+                if (chat) {
+                    fullChat = JSON.parse(chat);
+                }
+                else {
+                    const obj = {id: 0, class: 1, name: chatName, text: "Привет!", time: "00:01"};
+                    fullChat = {chats: [obj], name: chatName, seen: "был(а) 2 часа назад", status: false};
+
+                    localStorage.setItem(chatName, JSON.stringify(fullChat));
+                }
+
+                htmlContent += makeListObj(fullChat);
+            }
+            document.getElementById('chat_list').innerHTML = htmlContent;
+        }
 
         function makeListObj(fullChat) {
             const last = fullChat.chats.pop();
@@ -88,17 +109,6 @@
                         </div>
                     </div>
                 </button>`;
-        }
-
-        function makeMessage(obj) {
-            return `
-                <div class="message message--user-`+ obj.class + `" id="message` + obj.id + `">
-                    <div class="message-text">
-                        <div class="name">` + obj.name + `</div>
-                        <div class="text">` + obj.text + `</div>
-                        <div class="time">` + obj.time + `   <i class="material-icons" id="done">done_all</i></div>
-                    </div>
-                </div>`;
         }
 
         function toChat(name, seen) {
@@ -149,28 +159,15 @@
             }
         }
 
-        function toChatList() {
-            document.getElementById('phone_screen2').style.display = "none";
-            document.getElementById('phone_screen1').style.display = "flex";
-
-            let htmlContent = '';
-            for (const chatName of names) {
-                const chat = localStorage.getItem(chatName);
-
-                let fullChat;
-                if (chat) {
-                    fullChat = JSON.parse(chat);
-                }
-                else {
-                    const obj = {id: 0, class: 1, name: chatName, text: "Привет!", time: "00:01"};
-                    fullChat = {chats: [obj], name: chatName, seen: "был(а) 2 часа назад", status: false};
-
-                    localStorage.setItem(chatName, JSON.stringify(fullChat));
-                }
-
-                htmlContent += makeListObj(fullChat);
-            }
-            document.getElementById('chat_list').innerHTML = htmlContent;
+        function makeMessage(obj) {
+            return `
+                <div class="message message--user-`+ obj.class + `" id="message` + obj.id + `">
+                    <div class="message-text">
+                        <div class="name">` + obj.name + `</div>
+                        <div class="text">` + obj.text + `</div>
+                        <div class="time">` + obj.time + `   <i class="material-icons" id="done">done_all</i></div>
+                    </div>
+                </div>`;
         }
     </script>
 <script type="text/javascript" src="bundle.js"></script></body>
