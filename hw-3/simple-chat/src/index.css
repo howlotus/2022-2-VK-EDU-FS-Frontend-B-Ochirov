@@ -196,43 +196,43 @@ div.time {
     text-align: right;
 }
 
-#sca_icon {
+.sca-icon {
     font-size: medium;
     color: white;
 }
 
-#wifi_icon {
+.wifi-icon {
     font-size: medium;
     color: white;
 }
 
-#battery_icon {
+.battery-icon {
     font-size: medium;
     color: white;
 }
 
-#arrow_icon {
+.arrow-icon {
     text-align: center;
     font-size: x-large;
     color: white;
     flex-basis: 15%;
 }
 
-#account_icon {
+.account-icon {
     text-align: center;
     font-size: 38px;
     color: white;
     flex-basis: 20%;
 }
 
-#search_icon {
+.search-icon {
     width: 15%;
     text-align: center;
     font-size: x-large;
     color: white;
 }
 
-#vert_icon {
+.vert-icon {
     text-align: center;
     font-size: x-large;
     color: white;
@@ -251,7 +251,7 @@ div.time {
     padding-bottom: 10px;
 }
 
-#menu_icon {
+.menu-icon {
     color: white;
     width: 15%;
     text-align: center;
