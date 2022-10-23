@@ -26,20 +26,21 @@
         </div>
     </div>
     <script>
-        const chat_names = ["Дженнифер", "Крис", "Олег", "Екатерина"];
+        const names = ["Дженнифер", "Крис", "Олег", "Екатерина"];
         let htmlContent = '';
 
-        for (let chat_name of chat_names) {
-            let chat = localStorage.getItem(chat_name);
+        for (const chatName of names) {
+            const chat = localStorage.getItem(chatName);
+
             let fullChat;
             if (chat) {
                 fullChat = JSON.parse(chat);
             }
             else {
-                const obj = {id: 0, class: 1, name: chat_name, text: "Привет!", time: "00:01"};
-                fullChat = {chats: [obj], name: chat_name, status: true};
+                const obj = {id: 0, class: 1, name: chatName, text: "Привет!", time: "00:01"};
+                fullChat = {chats: [obj], name: chatName, seen: "был(а) 2 часа назад"};
 
-                localStorage.setItem(chat_name, JSON.stringify(fullChat));
+                localStorage.setItem(chatName, JSON.stringify(fullChat));
             }
 
             htmlContent += makeListObj(fullChat);
@@ -47,26 +48,26 @@
         document.getElementById('chat_list').insertAdjacentHTML('beforeend', htmlContent);
 
         function makeListObj(fullChat) {
-            let array = fullChat.chats;
-            let last = array[array.length - 1];
-            return `<button class="list-object" onclick="deleteChatList('`+ fullChat.name +`')">
-                <div class="avatar">
-                    <i class="material-icons" style="font-size: 50px">account_circle</i>
-                </div>
-                <div class="name-text">
-                    <div class="list-object-name">` + fullChat.name + `</div>
-                    <div class="list-object-text">` + last.text + `</div>
-                </div>
-                <div class="time-status">
-                    <div class="list-object-time">` + last.time + `</div>
-                    <div class="list-object-status">
-                        <i class="material-icons" style="font-size: 20px">done_all</i>
+            let last = fullChat.chats.pop();
+            return `
+                <button class="list-object" onclick="toChat('`+ fullChat.name +`', '`+ fullChat.seen +`')">
+                    <div class="avatar">
+                        <i class="material-icons" style="font-size: 50px">account_circle</i>
                     </div>
-                </div>
-            </button>`;
+                    <div class="name-text">
+                        <div class="list-object-name">` + fullChat.name + `</div>
+                        <div class="list-object-text">` + last.text + `</div>
+                    </div>
+                    <div class="time-status">
+                        <div class="list-object-time">` + last.time + `</div>
+                        <div class="list-object-status">
+                            <i class="material-icons" style="font-size: 20px">done_all</i>
+                        </div>
+                    </div>
+                </button>`;
         }
 
-        function deleteChatList(name) {
+        function toChat(name, seen) {
             document.getElementById('phone_screen1').remove();
 
             let htmlContent = `
@@ -78,13 +79,13 @@
                             <i class="material-icons" id="battery_icon">battery_3_bar</i>
                         </div>
                         <div class="down-icons-tab">
-                            <button onclick="returnChatList()" style="background-color: transparent; border: 0; margin-left: 12px;">
+                            <button onclick="toChatList()" style="background-color: transparent; border: 0; margin-left: 12px;">
                                 <i class="material-icons" id="arrow_icon">arrow_back</i>
                             </button>
                             <i class="material-icons" id="account_icon">account_circle</i>
                             <div class="user">
                                 <div class="username">` + name + `</div>
-                                <div class="userseen">был(а) 2 часа назад</div>
+                                <div class="userseen">` + seen + `</div>
                             </div>
                             <i class="material-icons" id="search_icon">search</i>
                             <i class="material-icons" id="vert_icon">more_vert</i>
@@ -109,7 +110,7 @@
             htmlContent = '';
             const chats = JSON.parse(localStorage.getItem(name)).chats;
             for (const obj of chats) {
-                htmlContent += makePost(obj);
+                htmlContent += makeMessage(obj);
             }
             document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', htmlContent);
 
@@ -118,7 +119,7 @@
 
             form.addEventListener('submit', handleSubmit);
 
-            function makePost(obj) {
+            function makeMessage(obj) {
                 return `<div class="message message--user-`+ obj.class + `" id="message` + obj.id + `">
                 <div class="message-text">
                     <div class="name">` + obj.name + `</div>
@@ -150,11 +151,11 @@
                 fullChat.chats = array;
                 localStorage.setItem(name, JSON.stringify(fullChat));
 
-                document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', makePost(obj));
+                document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', makeMessage(obj));
             }
         }
 
-        function returnChatList() {
+        function toChatList() {
             document.getElementById('phone_screen2').remove();
 
             let htmlContent = `
@@ -180,7 +181,7 @@
 
             htmlContent = '';
 
-            for (let chat_name of chat_names) {
+            for (let chat_name of names) {
                 let fullChat = JSON.parse(localStorage.getItem(chat_name));
 
                 htmlContent += makeListObj(fullChat);

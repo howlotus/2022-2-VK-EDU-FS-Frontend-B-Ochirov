@@ -110,6 +110,7 @@ div.input-field {
     padding: 10px;
     border-radius: 10px;
     background-color: white;
+    min-width: 45px;
     max-width: 70%;
 }
 
@@ -314,6 +315,7 @@ div.time {
     padding: 10px 0;
     border-bottom: 1px rgba(85, 85, 85, 0.3) solid;
     height: 100%;
+    overflow: hidden;
 }
 
 .list-object-name {
