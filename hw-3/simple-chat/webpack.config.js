@@ -16,7 +16,7 @@ module.exports = {
     },
     output: {
         path: BUILD_PATH,
-        filename: 'bundle.js'
+        filename: 'bundle.js',
     },
     module: {
         strictExportPresence: true,
