@@ -17,6 +17,8 @@ function toChat(name, seen) {
 
     input.value = "";
     form.addEventListener('submit', handleSubmit);
+    let returnButton = document.getElementById("return_arrow");
+    returnButton.addEventListener("click", toChatList);
 
     function handleSubmit(event) {
         event.preventDefault();

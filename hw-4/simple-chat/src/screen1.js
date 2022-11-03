@@ -1,13 +1,3 @@
-toChatList();
-
-let returnButton = document.getElementById("return_arrow");
-returnButton.addEventListener("click", toChatList);
-
-let chatListButtons = document.getElementsByClassName("list-object");
-for (let button of chatListButtons) {
-    button.addEventListener("click", toChat);
-}
-
 function toChatList() {
     const names = ["Дженнифер", "Крис", "Олег", "Екатерина", "Сергей",
         "Кристина", "Никита", "Барри", "Оливер", "Кларк"];
@@ -24,7 +14,7 @@ function toChatList() {
             fullChat = JSON.parse(chat);
         }
         else {
-            const obj = {id: 0, class: 1, name: chatName, text: "Привет!", time: "00:01"};
+            const obj = {id: 0, class: 1, name: chatName, text: "cwed!", time: "00:01"};
             fullChat = {chats: [obj], name: chatName, seen: "был(а) 2 часа назад", status: false};
 
             localStorage.setItem(chatName, JSON.stringify(fullChat));
