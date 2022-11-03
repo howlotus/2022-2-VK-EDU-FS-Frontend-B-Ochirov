@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="style.css" rel="stylesheet"></head>
+<body>
+    <div class="phone-screen" id="phone_screen1">
+        <div class="icons-tab">
+            <div class="up-icons-tab">
+                <i class="material-icons sca-icon">signal_cellular_alt</i>&nbsp;
+                <i class="material-icons wifi-icon">wifi</i>&nbsp;
+                <i class="material-icons battery-icon">battery_3_bar</i>
+            </div>
+            <div class="down-icons-tab">
+                <i class="material-icons menu-icon">menu</i>
+                <div class="messenger-caption">Messenger</div>
+                <i class="material-icons search-icon">search</i>
+            </div>
+        </div>
+        <div class="chat-list" id="chat_list"></div>
+        <div class="float-action-button">
+            <i class="material-icons create-icon">create</i>
+        </div>
+    </div>
+    <div class="phone-screen" id="phone_screen2">
+        <div class="icons-tab">
+            <div class="up-icons-tab">
+                <i class="material-icons sca-icon">signal_cellular_alt</i>&nbsp;
+                <i class="material-icons wifi-icon">wifi</i>&nbsp;
+                <i class="material-icons battery-icon">battery_3_bar</i>
+            </div>
+            <div class="down-icons-tab">
+                <button onclick="toChatList()" class="return-arrow">
+                    <i class="material-icons arrow-icon">arrow_back</i>
+                </button>
+                <i class="material-icons account-icon">account_circle</i>
+                <div class="user">
+                    <div class="username" id="user_name"></div>
+                    <div class="userseen" id="user_seen"></div>
+                </div>
+                <i class="material-icons search-icon">search</i>
+                <i class="material-icons vert-icon">more_vert</i>
+            </div>
+        </div>
+        <div class="chat">
+            <div id="dynamic_content"></div>
+        </div>
+        <div class="input-field">
+            <div class="spaces"></div>
+            <form id="my_form" class="form">
+                <span class="in-span">
+                    <label for="message_input"></label>
+                    <input class="form-input" type="text" id="message_input" name="message" placeholder="Сообщение">
+                </span>
+            </form>
+            <i class="material-icons attachment-icon">attachment</i>
+        </div>
+    </div>
+    <script>
+        toChatList();
+
+        function toChatList() {
+            const names = ["Дженнифер", "Крис", "Олег", "Екатерина", "Сергей",
+                "Кристина", "Никита", "Барри", "Оливер", "Кларк"];
+
+            document.getElementById('phone_screen2').style.display = "none";
+            document.getElementById('phone_screen1').style.display = "flex";
+
+            let htmlContent = '';
+            for (const chatName of names) {
+                const chat = localStorage.getItem(chatName);
+
+                let fullChat;
+                if (chat) {
+                    fullChat = JSON.parse(chat);
+                }
+                else {
+                    const obj = {id: 0, class: 1, name: chatName, text: "Привет!", time: "00:01"};
+                    fullChat = {chats: [obj], name: chatName, seen: "был(а) 2 часа назад", status: false};
+
+                    localStorage.setItem(chatName, JSON.stringify(fullChat));
+                }
+
+                htmlContent += makeListObj(fullChat);
+            }
+            document.getElementById('chat_list').innerHTML = htmlContent;
+        }
+
+        function makeListObj(fullChat) {
+            const last = fullChat.chats.pop();
+            let status = "";
+            if (fullChat.status)
+                status = "done_all";
+
+            return `
+                <button class="list-object" onclick="toChat('`+ fullChat.name +`', '` + fullChat.seen + `')">
+                    <div class="avatar">
+                        <i class="material-icons account-circle">account_circle</i>
+                    </div>
+                    <div class="name-text">
+                        <div class="list-object-name">` + fullChat.name + `</div>
+                        <div class="list-object-text">` + last.text + `</div>
+                    </div>
+                    <div class="time-status">
+                        <div class="list-object-time">` + last.time + `</div>
+                        <div class="list-object-status">
+                            <i class="material-icons status-icon">`+ status + `</i>
+                        </div>
+                    </div>
+                </button>`;
+        }
+
+        function toChat(name, seen) {
+            document.getElementById('phone_screen1').style.display = "none";
+            document.getElementById('phone_screen2').style.display = "flex";
+
+            let htmlContent = '';
+            const chats = JSON.parse(localStorage.getItem(name)).chats;
+            for (const obj of chats) {
+                htmlContent += makeMessage(obj);
+            }
+            document.getElementById('dynamic_content').innerHTML = htmlContent;
+
+            document.getElementById('user_name').innerText = name;
+            document.getElementById('user_seen').innerText = seen;
+
+            let input = document.getElementById('message_input');
+            const form = document.getElementById('my_form');
+
+            input.value = "";
+            form.addEventListener('submit', handleSubmit);
+
+            function handleSubmit(event) {
+                event.preventDefault();
+
+                const inputValue = input.value;
+                if (inputValue === "")
+                    return;
+                input.value = "";
+
+                const name = document.getElementById('user_name').innerText;
+                let fullChat = JSON.parse(localStorage.getItem(name));
+                let array = fullChat.chats;
+                const obj = {
+                    id: array.length,
+                    class: 2,
+                    name: "Я",
+                    text: inputValue,
+                    time: (new Date()).toLocaleTimeString("ru-Ru").substring(0, 5)
+                };
+
+                array.push(obj);
+                fullChat.chats = array;
+                fullChat.status = true;
+                localStorage.setItem(name, JSON.stringify(fullChat));
+
+                document.getElementById('dynamic_content').insertAdjacentHTML('beforeend', makeMessage(obj));
+            }
+        }
+
+        function makeMessage(obj) {
+            return `
+                <div class="message message--user-`+ obj.class + `" id="message` + obj.id + `">
+                    <div class="message-text">
+                        <div class="name">` + obj.name + `</div>
+                        <div class="text">` + obj.text + `</div>
+                        <div class="time">` + obj.time + `   <i class="material-icons" id="done">done_all</i></div>
+                    </div>
+                </div>`;
+        }
+    </script>
+<script type="text/javascript" src="bundle.js"></script></body>
+</html>
