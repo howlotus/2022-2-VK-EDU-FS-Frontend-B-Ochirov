@@ -7,7 +7,7 @@ export default function toChatList() {
     document.getElementById('phone_screen2').style.display = "none";
     document.getElementById('phone_screen1').style.display = "flex";
 
-    let htmlContent = '';
+    let fullChats = []
     for (const chatName of names) {
         const chat = localStorage.getItem(chatName);
 
@@ -16,13 +16,20 @@ export default function toChatList() {
             fullChat = JSON.parse(chat);
         }
         else {
-            const obj = {id: 0, class: 1, name: chatName, text: "Привет!", time: "00:01"};
+            const obj = {id: 0, class: 1, name: chatName, text: "Привет!", time: "Nov 04 2022 00:01:00 AM"};
             fullChat = {chats: [obj], name: chatName, seen: "был(а) 2 часа назад", status: false};
 
             localStorage.setItem(chatName, JSON.stringify(fullChat));
         }
 
-        htmlContent += makeListObj(fullChat);
+        fullChats.push(fullChat);
+    }
+
+    fullChats.sort((a, b) => new Date(b.chats[b.chats.length - 1].time).getTime() - new Date(a.chats[a.chats.length - 1].time).getTime());
+
+    let htmlContent = '';
+    for (const chat of fullChats) {
+        htmlContent += makeListObj(chat);
     }
     document.getElementById('chat_list').innerHTML = htmlContent;
 
@@ -51,7 +58,7 @@ function makeListObj(fullChat) {
                         <div class="list-object-text">` + last.text + `</div>
                     </div>
                     <div class="time-status">
-                        <div class="list-object-time">` + last.time + `</div>
+                        <div class="list-object-time">` + new Date(last.time).toLocaleTimeString("ru-Ru").substring(0, 5) + `</div>
                         <div class="list-object-status">
                             <i class="material-icons status-icon">`+ status + `</i>
                         </div>

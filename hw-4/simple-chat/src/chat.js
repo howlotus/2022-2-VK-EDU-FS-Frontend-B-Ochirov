@@ -37,7 +37,7 @@ export default function toChat(chat_name, seen) {
             class: 2,
             name: "Я",
             text: inputValue,
-            time: (new Date()).toLocaleTimeString("ru-Ru").substring(0, 5)
+            time: (new Date())//.toLocaleTimeString("ru-Ru").substring(0, 5)
         };
 
         array.push(obj);
@@ -55,7 +55,7 @@ function makeMessage(obj) {
                     <div class="message-text">
                         <div class="name">` + obj.name + `</div>
                         <div class="text">` + obj.text + `</div>
-                        <div class="time">` + obj.time + `   <i class="material-icons" id="done">done_all</i></div>
+                        <div class="time">` + new Date(obj.time).toLocaleTimeString("ru-Ru").substring(0, 5) + `   <i class="material-icons" id="done">done_all</i></div>
                     </div>
                 </div>`;
 }
