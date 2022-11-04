@@ -121,6 +121,18 @@ eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./chat
 
 /***/ }),
 
+/***/ "./chatNotification.js":
+/*!*****************************!*\
+  !*** ./chatNotification.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return newMessage; });\n/* harmony import */ var _chatList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chatList */ \"./chatList.js\");\nfunction _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== \"undefined\" && o[Symbol.iterator] || o[\"@@iterator\"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === \"number\") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError(\"Invalid attempt to iterate non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\"); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it[\"return\"] != null) it[\"return\"](); } finally { if (didErr) throw err; } } }; }\nfunction _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === \"string\") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === \"Object\" && o.constructor) n = o.constructor.name; if (n === \"Map\" || n === \"Set\") return Array.from(o); if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }\nfunction _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }\n\nfunction notificationUp() {\n  var notifications = document.getElementsByClassName('hidden');\n  var _iterator = _createForOfIteratorHelper(notifications),\n    _step;\n  try {\n    for (_iterator.s(); !(_step = _iterator.n()).done;) {\n      var note = _step.value;\n      note.style.display = \"flex\";\n      note.style.opacity = \"1\";\n    }\n  } catch (err) {\n    _iterator.e(err);\n  } finally {\n    _iterator.f();\n  }\n  var f1 = function f1() {\n    var _iterator2 = _createForOfIteratorHelper(notifications),\n      _step2;\n    try {\n      for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {\n        var note = _step2.value;\n        note.style.opacity = \"0\";\n      }\n    } catch (err) {\n      _iterator2.e(err);\n    } finally {\n      _iterator2.f();\n    }\n  };\n  var f2 = function f2() {\n    var _iterator3 = _createForOfIteratorHelper(notifications),\n      _step3;\n    try {\n      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {\n        var note = _step3.value;\n        note.style.display = \"none\";\n      }\n    } catch (err) {\n      _iterator3.e(err);\n    } finally {\n      _iterator3.f();\n    }\n  };\n  setTimeout(f1, 4000);\n  setTimeout(f2, 6000);\n  Object(_chatList__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\n}\nfunction newMessage(chatName, chatText) {\n  var names = document.getElementsByClassName(\"name-hidden\");\n  var texts = document.getElementsByClassName(\"text-hidden\");\n  var chat = localStorage.getItem(chatName);\n  if (chat) {\n    var fullChat = JSON.parse(chat);\n    var _iterator4 = _createForOfIteratorHelper(Array(names.length).keys()),\n      _step4;\n    try {\n      for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {\n        var i = _step4.value;\n        names[i].innerText = fullChat.name;\n        texts[i].innerText = chatText;\n      }\n    } catch (err) {\n      _iterator4.e(err);\n    } finally {\n      _iterator4.f();\n    }\n    var chatsList = fullChat.chats;\n    var obj = {\n      id: chatsList.length,\n      \"class\": 1,\n      name: fullChat.name,\n      text: chatText,\n      time: new Date()\n    };\n    chatsList.push(obj);\n    fullChat = {\n      chats: chatsList,\n      name: fullChat.name,\n      seen: \"был(а) 2 часа назад\",\n      status: false\n    };\n    localStorage.setItem(fullChat.name, JSON.stringify(fullChat));\n  }\n  setTimeout(notificationUp, 2500);\n}\n\n//# sourceURL=webpack:///./chatNotification.js?");
+
+/***/ }),
+
 /***/ "./chat_style.css":
 /*!************************!*\
   !*** ./chat_style.css ***!
@@ -151,7 +163,7 @@ eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./inde
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.css */ \"./index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _chatList_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chatList_style.css */ \"./chatList_style.css\");\n/* harmony import */ var _chatList_style_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_chatList_style_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _chat_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chat_style.css */ \"./chat_style.css\");\n/* harmony import */ var _chat_style_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_chat_style_css__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _main_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./main.js */ \"./main.js\");\n\n\n\n\n\n//# sourceURL=webpack:///./index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.css */ \"./index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _chatList_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chatList_style.css */ \"./chatList_style.css\");\n/* harmony import */ var _chatList_style_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_chatList_style_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _chat_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chat_style.css */ \"./chat_style.css\");\n/* harmony import */ var _chat_style_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_chat_style_css__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _notification_style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./notification_style.css */ \"./notification_style.css\");\n/* harmony import */ var _notification_style_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_notification_style_css__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _main_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./main.js */ \"./main.js\");\n\n\n\n\n\n\n//# sourceURL=webpack:///./index.js?");
 
 /***/ }),
 
@@ -163,7 +175,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _ind
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _chatList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chatList */ \"./chatList.js\");\n\nObject(_chatList__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\n\n//# sourceURL=webpack:///./main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _chatList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chatList */ \"./chatList.js\");\n/* harmony import */ var _chatNotification__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chatNotification */ \"./chatNotification.js\");\n\n\nObject(_chatList__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\nObject(_chatNotification__WEBPACK_IMPORTED_MODULE_1__[\"default\"])(\"Никита\", \"Как дела?\");\n\n//# sourceURL=webpack:///./main.js?");
+
+/***/ }),
+
+/***/ "./notification_style.css":
+/*!********************************!*\
+  !*** ./notification_style.css ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./notification_style.css?");
 
 /***/ })
 
