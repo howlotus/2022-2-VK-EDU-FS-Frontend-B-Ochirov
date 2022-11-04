@@ -1,4 +1,6 @@
-function toChatList() {
+import toChat from "./screen2";
+
+export default function toChatList() {
     const names = ["Дженнифер", "Крис", "Олег", "Екатерина", "Сергей",
         "Кристина", "Никита", "Барри", "Оливер", "Кларк"];
 
@@ -14,7 +16,7 @@ function toChatList() {
             fullChat = JSON.parse(chat);
         }
         else {
-            const obj = {id: 0, class: 1, name: chatName, text: "cwed!", time: "00:01"};
+            const obj = {id: 0, class: 1, name: chatName, text: "Привет!", time: "00:01"};
             fullChat = {chats: [obj], name: chatName, seen: "был(а) 2 часа назад", status: false};
 
             localStorage.setItem(chatName, JSON.stringify(fullChat));
@@ -23,6 +25,14 @@ function toChatList() {
         htmlContent += makeListObj(fullChat);
     }
     document.getElementById('chat_list').innerHTML = htmlContent;
+
+    let chatListButtons = document.getElementsByClassName("list-object");
+    for (let button of chatListButtons) {
+        button.addEventListener("click", function () {
+            localStorage.setItem("lastInfo", button.id);
+            toChat();
+        });
+    }
 }
 
 function makeListObj(fullChat) {
@@ -32,7 +42,7 @@ function makeListObj(fullChat) {
         status = "done_all";
 
     return `
-                <button class="list-object">
+                <button class="list-object" id="` + fullChat.name + ";" + fullChat.seen + `">
                     <div class="avatar">
                         <i class="material-icons account-circle">account_circle</i>
                     </div>

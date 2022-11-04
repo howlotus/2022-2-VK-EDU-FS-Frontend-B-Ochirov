@@ -7,6 +7,7 @@ const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const webpack = require('webpack');
 
 const SRC_PATH = path.resolve(__dirname, 'src');
+console.log(SRC_PATH);
 const BUILD_PATH = path.resolve(__dirname, 'build');
 
 module.exports = {
