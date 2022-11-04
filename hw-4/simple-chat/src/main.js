@@ -1,3 +1,3 @@
-import toChatList from './screen1';
+import toChatList from './chatList';
 
 toChatList();

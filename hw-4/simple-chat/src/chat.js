@@ -1,28 +1,25 @@
-import toChatList from "./screen1";
+import toChatList from "./chatList";
 
-export default function toChat() {
+export default function toChat(chat_name, seen) {
     document.getElementById('phone_screen1').style.display = "none";
     document.getElementById('phone_screen2').style.display = "flex";
 
-    let lastInfo = localStorage.getItem("lastInfo").split(";");
-
     let htmlContent = '';
-    const chats = JSON.parse(localStorage.getItem(lastInfo[0])).chats;
+    const chats = JSON.parse(localStorage.getItem(chat_name)).chats;
     for (const obj of chats) {
         htmlContent += makeMessage(obj);
     }
     document.getElementById('dynamic_content').innerHTML = htmlContent;
 
-    document.getElementById('user_name').innerText = lastInfo[0];
-    document.getElementById('user_seen').innerText = lastInfo[1];
+    document.getElementById('user_name').innerText = chat_name;
+    document.getElementById('user_seen').innerText = seen;
 
     let input = document.getElementById('message_input');
-    const form = document.getElementById('my_form');
 
     input.value = "";
-    form.addEventListener('submit', handleSubmit);
-    let returnButton = document.getElementById("return_arrow");
-    returnButton.addEventListener("click", toChatList);
+
+    document.getElementById('my_form').addEventListener('submit', handleSubmit);
+    document.getElementById("return_arrow").addEventListener("click", toChatList);
 
     function handleSubmit(event) {
         event.preventDefault();

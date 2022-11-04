@@ -105,29 +105,29 @@ eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./inde
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.css */ \"./index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _screen1_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./screen1_style.css */ \"./screen1_style.css\");\n/* harmony import */ var _screen1_style_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_screen1_style_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _screen2_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./screen2_style.css */ \"./screen2_style.css\");\n/* harmony import */ var _screen2_style_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_screen2_style_css__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\n\n//# sourceURL=webpack:///./index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.css */ \"./index.css\");\n/* harmony import */ var _index_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_index_css__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _screen1_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chatList_style.css */ \"./chatList_style.css\");\n/* harmony import */ var _screen1_style_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_screen1_style_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _screen2_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./chat_style.css */ \"./chat_style.css\");\n/* harmony import */ var _screen2_style_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_screen2_style_css__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\n\n//# sourceURL=webpack:///./index.js?");
 
 /***/ }),
 
 /***/ "./screen1_style.css":
 /*!***************************!*\
-  !*** ./screen1_style.css ***!
+  !*** ./chatList_style.css ***!
   \***************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./screen1_style.css?");
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./chatList_style.css?");
 
 /***/ }),
 
 /***/ "./screen2_style.css":
 /*!***************************!*\
-  !*** ./screen2_style.css ***!
+  !*** ./chat_style.css ***!
   \***************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./screen2_style.css?");
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./chat_style.css?");
 
 /***/ })
 

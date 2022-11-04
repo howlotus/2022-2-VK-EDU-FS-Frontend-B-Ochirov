@@ -1,4 +1,4 @@
-import toChat from "./screen2";
+import toChat from "./chat";
 
 export default function toChatList() {
     const names = ["Дженнифер", "Крис", "Олег", "Екатерина", "Сергей",
@@ -29,8 +29,8 @@ export default function toChatList() {
     let chatListButtons = document.getElementsByClassName("list-object");
     for (let button of chatListButtons) {
         button.addEventListener("click", function () {
-            localStorage.setItem("lastInfo", button.id);
-            toChat();
+            const info = button.id.split(";");
+            toChat(info[0], info[1]);
         });
     }
 }
