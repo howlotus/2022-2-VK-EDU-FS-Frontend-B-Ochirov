@@ -6,7 +6,14 @@
 }
 
 .return-arrow:hover {
+    transition: 0.3s;
+    transition-delay: 0.1s;
     color: rgb(176, 176, 176);
+}
+
+.return-arrow:active {
+    transition: 0.3s;
+    color: rgb(243, 229, 245);
 }
 
 .arrow-icon {
