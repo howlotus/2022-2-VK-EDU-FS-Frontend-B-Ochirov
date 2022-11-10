@@ -1,9 +1,6 @@
 # Default ignored files
 /shelf/
-/hw-1/.idea/workspace.xml
-/hw-1/.idea/modules.xml
-/hw-1/.idea/my-project.iml
-/hw-2/build/
+/simple-chat/build/
 # Editor-based HTTP Client requests
 /httpRequests/
 /.idea/
