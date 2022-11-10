@@ -1,0 +1,12 @@
+.chat {
+  display: flex;
+  flex-direction: column-reverse;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow: auto;
+}
+
+.dynamic_content {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

@@ -1,0 +1,31 @@
+div.icons-tab {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(141, 44, 168);
+  min-height: 81px;
+  height: 81px;
+}
+
+div.up-icons-tab {
+  display: flex;
+  justify-content: flex-end;
+  height: 25px;
+  border-bottom: rgb(140, 43, 166) 2px solid;
+  padding-top: 5px;
+}
+
+.sca-icon {
+  font-size: medium;
+  color: white;
+}
+
+.wifi-icon {
+  font-size: medium;
+  color: white;
+}
+
+.battery-icon {
+  font-size: medium;
+  color: white;
+}

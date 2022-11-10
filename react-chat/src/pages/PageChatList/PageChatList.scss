@@ -1,0 +1,58 @@
+div.phone-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 358px;
+  height: 634px;
+  background-color: rgb(243, 243, 243);
+  position: relative;
+}
+
+.pulse {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  text-align: center;
+  background: rgb(254, 212, 91);
+  color: rgb(116, 96, 41);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  padding: 16px;
+}
+
+.pulse:hover::after,
+.pulse:hover::before {
+  content: '';
+  position: absolute;
+  border: 2px solid rgb(254, 212, 91);
+  left: -20px;
+  opacity: 0;
+  right: -20px;
+  top: -20px;
+  bottom: -20px;
+  border-radius: 50%;
+  animation: pulse 2.5s linear infinite;
+}
+
+.pulse:hover::after {
+  animation-delay: 1.25s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+.create-icon {
+  font-size: 24px;
+}
