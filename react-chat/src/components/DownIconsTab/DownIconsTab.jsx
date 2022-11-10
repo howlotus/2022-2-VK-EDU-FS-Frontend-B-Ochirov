@@ -5,16 +5,18 @@ export function DownIconsTab(props) {
     const status = props.page === "chat_list";
     let info = localStorage.getItem("currentValue").split(";");
 
-    return (
-        <div>
-            { status ? (
-                <div className="down-icons-tab">
-                    <i className="material-icons menu-icon">menu</i>
-                    <div className="messenger-caption">Messenger</div>
-                    <i className="material-icons search-icon">search</i>
-                </div>
-            ) : (
-                <div className="down-icons-tab">
+    if (status) {
+        return (
+            <div className="down-icons-tab">
+                <i className="material-icons menu-icon">menu</i>
+                <div className="messenger-caption">Messenger</div>
+                <i className="material-icons search-icon">search</i>
+            </div>
+        );
+    }
+    else {
+        return (
+            <div className="down-icons-tab">
                 <button id="return_arrow" className="return-arrow" onClick={props.onClick}>
                     <i className="material-icons arrow-icon">arrow_back</i>
                 </button>
@@ -25,7 +27,7 @@ export function DownIconsTab(props) {
                 </div>
                 <i className="material-icons search-icon">search</i>
                 <i className="material-icons vert-icon">more_vert</i>
-            </div>)}
-        </div>
-    );
+            </div>
+        );
+    }
 }

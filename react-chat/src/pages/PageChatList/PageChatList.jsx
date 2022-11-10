@@ -4,7 +4,7 @@ import {IconsTab} from "../../components/IconsTab/IconsTab";
 import {ChatList} from "../../components/ChatList/ChatList";
 
 export function PageChatList(props) {
-    function handleChatPick(event) {
+    function handleChatPick() {
         props.changePage(true);
     }
 
