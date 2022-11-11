@@ -2,6 +2,10 @@ import React from "react";
 import './DownIconsTab.scss';
 
 export function DownIconsTab(props) {
+    function handleChangePage() {
+        props.changePage(false, null);
+    }
+
     const status = props.page === "chat_list";
 
     if (status) {
@@ -16,7 +20,7 @@ export function DownIconsTab(props) {
     else {
         return (
             <div className="down-icons-tab">
-                <button id="return_arrow" className="return-arrow" onClick={props.changePage}>
+                <button id="return_arrow" className="return-arrow" onClick={handleChangePage}>
                     <i className="material-icons arrow-icon">arrow_back</i>
                 </button>
                 <i className="material-icons account-icon">account_circle</i>

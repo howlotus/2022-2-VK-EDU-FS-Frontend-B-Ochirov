@@ -10,7 +10,7 @@ export function IconsTab(props) {
                 <i className={"material-icons wifi-icon"}>wifi</i>&nbsp;
                 <i className={"material-icons battery-icon"}>battery_3_bar</i>
             </div>
-            <DownIconsTab name={props.name} page={props.page} changePage={props.changePage}></DownIconsTab>
+            <DownIconsTab page={props.page} name={props.name} changePage={props.changePage}/>
         </div>
     );
 }

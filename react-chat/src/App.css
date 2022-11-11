@@ -46,3 +46,23 @@ div.phone-screen {
   background-color: rgb(243, 243, 243);
   position: relative;
 }
+
+div.phone-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 358px;
+  height: 634px;
+  background-color: rgb(243, 243, 243);
+  position: relative;
+}
+
+div.chat-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 358px;
+  height: 553px;
+  background-color: rgb(243, 243, 243);
+  position: relative;
+}
