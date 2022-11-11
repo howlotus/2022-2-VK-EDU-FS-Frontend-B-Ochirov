@@ -10,7 +10,7 @@ class App extends React.Component {
         super(props);
         this.changePage = this.changePage.bind(this);
 
-        window.history.replaceState(null, '','/#chat_list');
+        window.history.replaceState(null, '','/2022-2-VK-EDU-FS-Frontend-B-Ochirov/#chat_list');
         this.state = {
             page: "chat_list",
             chatName: null
@@ -30,7 +30,7 @@ class App extends React.Component {
                 }
             )
         } else {
-            window.history.replaceState(null, '','/#chat_list')
+            window.history.replaceState(null, '','/2022-2-VK-EDU-FS-Frontend-B-Ochirov/#chat_list')
             this.setState({
                     page: "chat_list",
                     chatName: name
