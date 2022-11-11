@@ -6,7 +6,7 @@ export function ChatList(props) {
     const names = ["Дженнифер", "Крис", "Олег", "Екатерина", "Сергей",
         "Кристина", "Никита", "Барри", "Оливер", "Кларк"];
 
-    let fullChats = []
+    let fullChats = [];
     for (const chatName of names) {
         const chat = localStorage.getItem(chatName);
 
@@ -28,8 +28,10 @@ export function ChatList(props) {
 
     return (
         <div className={"chat-list"}>
-            {fullChats ? fullChats.map((chat, i) =>
-                <ChatListButton chat={chat} key={i} onClick={props.handleClick}/>) : null}
+            {fullChats ?
+                fullChats.map((chat, i) =>
+                <ChatListButton chat={chat} key={i} changePage={props.changePage}/>)
+                : null}
         </div>
     );
 }

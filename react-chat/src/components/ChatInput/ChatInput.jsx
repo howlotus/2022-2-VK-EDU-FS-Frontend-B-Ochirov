@@ -10,9 +10,7 @@ export function ChatInput(props) {
             return;
         event.target[0].value = "";
 
-        let info = localStorage.getItem("currentValue").split(";");
-
-        const name = info[0];
+        const name = props.name;
         let fullChat = JSON.parse(localStorage.getItem(name));
         let array = fullChat.chats;
         const obj = {
@@ -28,7 +26,7 @@ export function ChatInput(props) {
         fullChat.status = true;
         localStorage.setItem(name, JSON.stringify(fullChat));
 
-        props.handleAddValue();
+        props.updateChat();
 
         event.target[0].value = ""
     }

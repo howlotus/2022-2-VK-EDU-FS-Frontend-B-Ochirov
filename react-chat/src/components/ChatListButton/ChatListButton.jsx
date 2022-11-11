@@ -8,11 +8,12 @@ export function ChatListButton(props) {
     if (chat.status)
         status = "done_all";
 
+    function handleChangePage() {
+        props.changePage(true, chat.name);
+    }
+
     return (
-        <button className={"list-object"} id={chat.name + ";" + chat.seen} onClick={() => {
-            localStorage.setItem("currentValue", chat.name + ";" + chat.seen);
-            props.onClick();
-        }}>
+        <button className={"list-object"} id={chat.name + ";" + chat.seen} onClick={handleChangePage}>
             <div className={"avatar"}>
                 <i className={"material-icons account-circle"}>account_circle</i>
             </div>

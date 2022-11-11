@@ -10,21 +10,24 @@ class App extends React.Component {
 
         window.history.replaceState(null, '','/#chat_list');
         this.state = {
-            page: "chat_list"
+            page: "chat_list",
+            currentChatName: null
         }
     }
 
-    changePage(swap) {
+    changePage(swap, name) {
         if (swap) {
             window.history.pushState(null, '/#chat_list', '/#chat')
             this.setState({
-                    page: "chat"
+                    page: "chat",
+                    currentChatName: name
                 }
             )
         } else {
             window.history.replaceState(null, '','/#chat_list')
             this.setState({
-                    page: "chat_list"
+                    page: "chat_list",
+                    currentChatName: name
                 }
             )
         }
@@ -36,7 +39,7 @@ class App extends React.Component {
                 {this.state.page === 'chat_list' &&
                     <PageChatList page={"chat_list"} changePage={this.changePage}/>}
                 {this.state.page === 'chat' &&
-                    <PageChat page={"chat"} changePage={this.changePage}/>}
+                    <PageChat name={this.state.currentChatName} page={"chat"} changePage={this.changePage}/>}
             </div>
         )
     }

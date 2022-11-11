@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+div.phone-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 358px;
+  height: 634px;
+  background-color: rgb(243, 243, 243);
+  position: relative;
+}

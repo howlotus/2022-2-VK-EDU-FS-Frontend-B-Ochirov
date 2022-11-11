@@ -5,25 +5,23 @@ import {Chat} from "../../components/Chat/Chat";
 import {ChatInput} from "../../components/ChatInput/ChatInput"
 
 export function PageChat(props) {
-    let info = localStorage.getItem("currentValue").split(";");
-    const chats = JSON.parse(localStorage.getItem(info[0])).chats;
-    const [value, setValue] = useState(chats);
+    const chats = JSON.parse(localStorage.getItem(props.name)).chats;
+    const [chat, setChatState] = useState(chats);
 
-    const handleAddValue = () => {
-        let info = localStorage.getItem("currentValue").split(";");
-        const chats = JSON.parse(localStorage.getItem(info[0])).chats;
-        setValue(chats);
+    const handleChatUpdate = () => {
+        const chats = JSON.parse(localStorage.getItem(props.name)).chats;
+        setChatState(chats);
     }
 
-    function handleChatPick(event) {
-        props.changePage(false);
+    function handleChangePage() {
+        props.changePage(false, null);
     }
 
     return (
-        <div className={"phone-screen"}>
-            <IconsTab page={props.page} onClick={handleChatPick}/>
-            <Chat chats={value}/>
-            <ChatInput handleAddValue={handleAddValue}/>
+        <div className="phone-screen">
+            <IconsTab name={props.name} page={props.page} changePage={handleChangePage}/>
+            <Chat chats={chat}/>
+            <ChatInput name={props.name} updateChat={handleChatUpdate}/>
         </div>
     );
 }
